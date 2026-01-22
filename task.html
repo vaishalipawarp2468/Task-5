@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Form with Validation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Segoe UI", Arial, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+    }
+
+    .form-box{
+      background:#ffffff;
+      padding:30px;
+      width:100%;
+      max-width:420px;
+      border-radius:12px;
+      box-shadow:0 15px 35px rgba(0,0,0,0.2);
+      animation:fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateY(20px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+
+    .form-box h2{
+      text-align:center;
+      margin-bottom:10px;
+      color:#1f2937;
+    }
+
+    .form-box p{
+      text-align:center;
+      font-size:14px;
+      color:#6b7280;
+      margin-bottom:20px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+      color:#374151;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:12px;
+      margin-bottom:12px;
+      border:1px solid #d1d5db;
+      border-radius:8px;
+      outline:none;
+      font-size:14px;
+      transition:0.3s;
+    }
+
+    input:focus,
+    textarea:focus{
+      border-color:#6366f1;
+      box-shadow:0 0 0 3px rgba(99,102,241,0.2);
+    }
+
+    textarea{
+      resize:none;
+      height:110px;
+    }
+
+    .error{
+      color:#dc2626;
+      font-size:13px;
+      margin-bottom:10px;
+      display:none;
+    }
+
+    button{
+      width:100%;
+      padding:12px;
+      background:linear-gradient(135deg, #6366f1, #4f46e5);
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:16px;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:linear-gradient(135deg, #4f46e5, #4338ca);
+      transform:translateY(-1px);
+    }
+
+    button:active{
+      transform:scale(0.98);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="form-box">
+    <h2>Contact Us</h2>
+    <p>Please fill out all fields carefully. All fields are mandatory.</p>
+
+    <form onsubmit="return validateForm()">
+
+      <!-- Name -->
+      <label>Name</label>
+      <input type="text" id="name" placeholder="Enter your full name">
+      <div class="error" id="nameError">Please enter your name</div>
+
+      <!-- Email -->
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Enter valid email">
+      <div class="error" id="emailError">Please enter a valid email</div>
+
+      <!-- Contact Number -->
+      <label>Contact Number</label>
+      <input type="tel" id="phone" placeholder="Enter 10-digit mobile number">
+      <div class="error" id="phoneError">Please enter valid 10-digit mobile number</div>
+
+      <!-- Message -->
+      <label>Message</label>
+      <textarea id="message" placeholder="Write your message (minimum 10 characters)"></textarea>
+      <div class="error" id="messageError">Message must be at least 10 characters</div>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm(){
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+      let message = document.getElementById("message").value.trim();
+      let valid = true;
+
+      document.getElementById("nameError").style.display="none";
+      document.getElementById("emailError").style.display="none";
+      document.getElementById("phoneError").style.display="none";
+      document.getElementById("messageError").style.display="none";
+
+      if(name === ""){
+        document.getElementById("nameError").style.display="block";
+        valid = false;
+      }
+
+      if(email === "" || !email.includes("@")){
+        document.getElementById("emailError").style.display="block";
+        valid = false;
+      }
+
+      if(phone === "" || !/^[0-9]{10}$/.test(phone)){
+        document.getElementById("phoneError").style.display="block";
+        valid = false;
+      }
+
+      if(message === "" || message.length < 10){
+        document.getElementById("messageError").style.display="block";
+        valid = false;
+      }
+
+      if(valid){
+        alert("Form submitted successfully!");
+      }
+
+      return valid;
+    }
+  </script>
+
+</body>
+</html>
